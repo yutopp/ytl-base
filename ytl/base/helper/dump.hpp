@@ -1,5 +1,5 @@
-#ifndef YTL_UTILITY_DUMP_HPP
-#define YTL_UTILITY_DUMP_HPP
+#ifndef YTL_BASE_HELPER_DUMP_HPP
+#define YTL_BASE_HELPER_DUMP_HPP
 
 #include <cstdio>
 #include <cstddef>
@@ -125,4 +125,4 @@ namespace ytl
 
 } // namespace ytl
 
-#endif /*YTL_UTILITY_DUMP_HPP*/
+#endif /*YTL_BASE_HELPER_DUMP_HPP*/

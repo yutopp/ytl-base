@@ -1,12 +1,11 @@
+#include "../config.hpp"
+
 #if !defined(YTL_OLD_IMPL)
 
 #ifndef YTL_BASE_CONSTEXPR_UTILITY_INDEX_TUPLE_HPP
 #define YTL_BASE_CONSTEXPR_UTILITY_INDEX_TUPLE_HPP
 
 #include <type_traits>
-
-#include "../config.hpp"
-
 
 namespace ytl
 {
@@ -47,20 +46,6 @@ namespace ytl
         {
             return detail::make_index_tuple_impl<NumType, (Begin < End) ? ( ( ( End - Begin ) + ( ( End - Begin ) % Step ) ) / Step ) : 0>().template create<Begin, End, Step>();
         }
-
-/*
-    {
-        static_assert( std::is_same<decltype( ytl::cu::make_index_list<0, 0>() ), ytl::cu::index_list<>>::value, "" );
-        static_assert( std::is_same<decltype( ytl::cu::make_index_list<3, 0>() ), ytl::cu::index_list<>>::value, "" );
-        static_assert( std::is_same<decltype( ytl::cu::make_index_list<0, 5, 1>() ), ytl::cu::index_list<0, 1, 2, 3, 4>>::value, "" );
-        static_assert( std::is_same<decltype( ytl::cu::make_index_list<0, 9, 2>() ), ytl::cu::index_list<0, 2, 4, 6, 8>>::value, "" );
-        //static_assert( std::is_same<decltype( ytl::cu::make_irange<0, 5, 1>() ), ytl::cu::irange<0, 1, 2, 3, 4> >::value, "" );
-//        static_assert( ytl::cu::get<1>( ytl::cu::detail::type_indexer<double>().prove<bool, int, double>( 0 ) ) == 2, "" );
-//
-//        static_assert( ytl::cu::get<0>( ytl::cu::detail::type_indexer<char>().prove<bool, int, double>( 0 ) ) == false, "" );
-    }
-*/
-
 
     } // namespace cu
 } // namespace ytl

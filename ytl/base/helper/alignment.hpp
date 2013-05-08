@@ -1,7 +1,7 @@
-#ifndef YTL_UTILITY_ALIGNMENT_HPP
-#define YTL_UTILITY_ALIGNMENT_HPP
+#ifndef YTL_BASE_HELPER_ALIGNMENT_HPP
+#define YTL_BASE_HELPER_ALIGNMENT_HPP
 
-#include <ytl/config.hpp>
+#include "../config.hpp"
 
 #if defined( YTL_C_MSVC )
 
@@ -19,15 +19,15 @@
 
 namespace ytl
 {
-    inline std::size_t padding_size( std::size_t const size, std::size_t alignment )
+    inline YTL_CONSTEXPR std::size_t padding_size( std::size_t const size, std::size_t alignment )
     {
         return alignment - size % alignment;
     }
 
-    inline std::size_t aligned_size( std::size_t const size, std::size_t alignment )
+    inline YTL_CONSTEXPR std::size_t aligned_size( std::size_t const size, std::size_t alignment )
     {
         return size + padding_size( size, alignment );
     }
 }
 
-#endif /*YTL_UTILITY_ALIGNMENT_HPP*/
+#endif /*YTL_BASE_HELPER_ALIGNMENT_HPP*/

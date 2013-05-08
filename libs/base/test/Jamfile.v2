@@ -1,0 +1,26 @@
+import path ;
+import testing ;
+
+project ytl-base-test
+    : requirements
+        <define>BOOST_ALL_NO_LIB
+        <include>$(boost-root)
+        <include>$(ytl-part-root)
+        <include>$(dependency-path)
+        <library>/boost/test//boost_unit_test_framework
+        <link>static
+        <warnings>all
+        <toolset>gcc:<cxxflags>-Wextra
+        <toolset>gcc:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>gcc:<cxxflags>-pedantic
+        <toolset>gcc:<cxxflags>-std=c++11
+    ;
+
+test-suite ytl-base :
+    [ run buffer_normal.cpp ]
+    [ run buffer_file_mapped.cpp ]
+    [ run constexpr_utility_tuple.cpp ]
+    [ run constexpr_utility_index_tuple.cpp ]
+    [ run constexpr_utility_variant.cpp ]
+    ;
+

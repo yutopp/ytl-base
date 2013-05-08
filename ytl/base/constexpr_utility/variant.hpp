@@ -1,3 +1,5 @@
+#include "../config.hpp"
+
 #if !defined(YTL_OLD_IMPL)
 
 #ifndef YTL_BASE_CONSTEXPR_UTILITY_VARIANT_HPP
@@ -6,8 +8,6 @@
 #include <type_traits>
 #include <stdexcept>
 
-#include "../config.hpp"
-
 #include "tuple.hpp"
 #include "index_tuple.hpp"
 
@@ -15,6 +15,97 @@ namespace ytl
 {
     namespace cu
     {
+        namespace detail
+        {
+            template<bool HasType, std::size_t Index>
+            struct found_type_index_value
+            {
+                static YTL_CONSTEXPR bool is_found = HasType;
+            };
+
+
+            template<template<typename, typename> class Match, typename To, std::size_t N>
+            struct type_indexer
+            {
+                template<std::size_t Index, typename T, typename... Ts>
+                YTL_CONSTEXPR auto probe() const
+                    -> typename std::enable_if<
+                            Match<To, T>::value,
+                            found_type_index_value<true, Index>
+                       >::type
+                {
+                    return found_type_index_value<true, Index>();
+                }
+
+                template<std::size_t Index, typename T, typename... Ts>
+                YTL_CONSTEXPR auto probe() const
+                    -> typename std::enable_if<
+                            !Match<To, T>::value,
+                            decltype( type_indexer<Match, To, N - 1>().template probe<Index + 1, Ts...>() )
+                       >::type
+                {
+                    return type_indexer<Match, To, N - 1>().template probe<Index + 1, Ts...>();
+                }
+            };
+
+            template<template<typename, typename> class Match, typename To>
+            struct type_indexer<Match, To, 0>
+            {
+                template<std::size_t Index, typename T>
+                YTL_CONSTEXPR auto probe() const
+                    -> typename std::enable_if<
+                            Match<To, T>::value,
+                            found_type_index_value<true, Index>
+                       >::type
+                {
+                    return found_type_index_value<true, Index>();
+                }
+
+                template<std::size_t Index, typename T>
+                YTL_CONSTEXPR auto probe() const
+                    -> typename std::enable_if<
+                            !Match<To, T>::value,
+                            found_type_index_value<false, 0>
+                       >::type
+                {
+                    return found_type_index_value<false, 0>();
+                }
+            };
+
+            template<template<typename, typename> class Match, typename To, typename... Ts>
+            YTL_CONSTEXPR auto find_type_index_by_m()
+                -> typename std::enable_if<
+                        ( sizeof...(Ts) > 0 ),
+                        decltype( detail::type_indexer<Match, To, ( sizeof...(Ts) - 1 )>().template probe<0, Ts...>() )
+                   >::type
+            {
+                return detail::type_indexer<Match, To, ( sizeof...(Ts) - 1 )>().template probe<0, Ts...>();
+            }
+        } // namespace detail
+
+        // find type index
+        template<typename To, typename... Ts>
+        YTL_CONSTEXPR auto find_type_index()
+            -> typename std::enable_if<
+                    decltype( detail::find_type_index_by_m<std::is_same, To, Ts...>() )::is_found,
+                    decltype( detail::find_type_index_by_m<std::is_same, To, Ts...>() )
+               >::type
+        {
+            return detail::find_type_index_by_m<std::is_same, To, Ts...>();
+        }
+
+        template<typename To, typename... Ts>
+        YTL_CONSTEXPR auto find_type_index()
+            -> typename std::enable_if<
+                    !decltype( detail::find_type_index_by_m<std::is_same, To, Ts...>() )::is_found,
+                    decltype( detail::find_type_index_by_m<std::is_convertible, To, Ts...>() )
+               >::type
+        {
+            return detail::find_type_index_by_m<std::is_convertible, To, Ts...>();
+        }
+
+
+        // for variant detail
         namespace detail
         {
             struct decay_initializer
@@ -217,56 +308,6 @@ namespace ytl
         {
             return var.apply_visitor( visitor );
         }
-
-
-/*
-    {
-        YTL_CONSTEXPR ytl::cu::variant<bool, int, double> const p( true );
-        static_assert( p.which() == 0, "" );
-
-        static_assert( p.apply_visitor( hoge_visitor() ) == false, "" );
-        //static_assert( ytl::cu::get<p.which_>( p.value_ ) == true, "" );
-    }
-
-    {
-        bool b = true;
-        ytl::cu::variant<bool, int, double> const p( b );
-        assert( p.which() == 0 );
-
-        assert( p.apply_visitor( hoge_visitor() ) == false );
-        //static_assert( ytl::cu::get<p.which_>( p.value_ ) == true, "" );
-    }
-
-    {
-        YTL_CONSTEXPR auto const p = ytl::cu::variant<bool, int, double>( 72 );
-        static_assert( p.which()== 1, "" );
-
-        static_assert( p.apply_visitor( hoge_visitor() ) == true, "" );
-        //static_assert( ytl::cu::get<p.which_>( p.value_ ) == 72, "" );
-    }
-
-    {
-        YTL_CONSTEXPR auto const p = ytl::cu::variant<bool, int, double>( 3.14 );
-        static_assert( p.which() == 2, "" );
-
-        static_assert( p.apply_visitor( hoge_visitor() ) == false, "" );
-        //static_assert( ytl::cu::get<p.which_>( p.value_ ) == 3.14, "" );
-    }
-
-    {
-        YTL_CONSTEXPR auto const p = ytl::cu::variant<bool, int, double>( 5 );
-        static_assert( p.which() != 2, "" );
-        //static_assert( ytl::cu::get<1>( p.value_ ) != 3.14, "" );
-    }
-
-    {
-        YTL_CONSTEXPR auto const p = ytl::cu::variant<bool, int, double>( 5 );
-        static_assert( p.which() != 2, "" );
-        //static_assert( ytl::cu::get<1>( p.value_ ) != 3.14, "" );
-    }
-*/
-
-
 
     } // namespace cu
 } // namespace ytl

@@ -1,5 +1,5 @@
-#ifndef YTL_UTILITY_LOAD_FILE_HPP
-#define YTL_UTILITY_LOAD_FILE_HPP
+#ifndef YTL_BASE_HELPER_LOAD_FILE_HPP
+#define YTL_BASE_HELPER_LOAD_FILE_HPP
 
 #include <string>
 #include <fstream>
@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <algorithm>
 
-#include <ytl/config.hpp>
+#include "../config.hpp"
 
 namespace ytl
 {
@@ -45,4 +45,4 @@ namespace ytl
 
 } // namespace ytl
 
-#endif /*YTL_UTILITY_LOAD_FILE_HPP*/
+#endif /*YTL_BASE_HELPER_LOAD_FILE_HPP*/

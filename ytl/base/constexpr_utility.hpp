@@ -6,6 +6,4 @@
 #include "constexpr_utility/tuple.hpp"
 #include "constexpr_utility/variant.hpp"
 
-#include "constexpr_utility/algorithm.hpp"
-
 #endif /*YTL_BASE_CONSTEXPR_UTILITY_HPP*/
