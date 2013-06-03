@@ -6,8 +6,7 @@
 
 #include <boost/noncopyable.hpp>
 
-#include <ytl/utility/guard_macros.hpp>
-
+#include "../helper/guard_macros.hpp"
 #include "detail/binary_buffer_base.hpp"
 
 
@@ -128,7 +127,8 @@ namespace ytl
         auto operator=( binary_buffer_immutable_pack const& rhs ) -> binary_buffer_immutable_pack&
         {
             if ( this != &rhs ) {
-                binary_buffer_immutable_pack t( rhs ).swap( *this );
+                binary_buffer_immutable_pack t( rhs );
+                t.swap( *this );
             }
 
             return *this;
@@ -138,7 +138,8 @@ namespace ytl
         auto operator=( binary_buffer_immutable_pack&& rhs ) -> binary_buffer_immutable_pack&
         {
             if ( this != &rhs ) {
-                binary_buffer_immutable_pack t( std::move( rhs ) ).swap( *this );
+                binary_buffer_immutable_pack t( std::move( rhs ) );
+                t.swap( *this );
             }
 
             return *this;

@@ -1,5 +1,5 @@
-#ifndef YTL_BINARY_RANGE_TRAITS_HPP
-#define YTL_BINARY_RANGE_TRAITS_HPP
+#ifndef YTL_BASE_DETAIL_BINARY_RANGE_TRAITS_HPP
+#define YTL_BASE_DETAIL_BINARY_RANGE_TRAITS_HPP
 
 #include <utility>
 #include <type_traits>
@@ -71,4 +71,4 @@ namespace ytl
     } // namespace detail
 } // namespace ytl
 
-#endif /*YTL_BINARY_RANGE_TRAITS_HPP*/
+#endif /*YTL_BASE_DETAIL_BINARY_RANGE_TRAITS_HPP*/

@@ -1,12 +1,12 @@
-#ifndef YTL_BUFFER_WINDOWS_RUNNABLE_BUFFER_ALLOCATOR_HPP
-#define YTL_BUFFER_DETAIL_WINDOWS_RUNNABLE_BUFFER_ALLOCATOR_HPP
+#ifndef YTL_BASE_DETAIL_BUFFER_WINDOWS_RUNNABLE_BUFFER_ALLOCATOR_HPP
+#define YTL_BASE_DETAIL_BUFFER_WINDOWS_RUNNABLE_BUFFER_ALLOCATOR_HPP
 
 #include <cstddef>
 #include <cstring>
 #include <limits>
 #include <exception>
 
-#include <ytl/config/windows.hpp>
+#include "../../config/windows.hpp"
 
 namespace ytl
 {
@@ -87,4 +87,4 @@ namespace ytl
     } // namespace detail
 } // namespace ytl
 
-#endif /*YTL_BUFFER_DETAIL_WINDOWS_RUNNABLE_BUFFER_ALLOCATOR_HPP*/
+#endif /*YTL_BASE_DETAIL_BUFFER_WINDOWS_RUNNABLE_BUFFER_ALLOCATOR_HPP*/

@@ -19,6 +19,7 @@ project ytl-base-test
 test-suite ytl-base :
     [ run buffer_normal.cpp ]
     [ run buffer_file_mapped.cpp ]
+    [ run buffer_short.cpp ]
     [ run constexpr_utility_tuple.cpp ]
     [ run constexpr_utility_index_tuple.cpp ]
     [ run constexpr_utility_variant.cpp ]

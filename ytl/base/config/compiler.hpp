@@ -5,16 +5,12 @@
 
 #if defined( _MSC_VER )
 # define YTL_C_MSVC
-
 #elif defined( __GNUC__ )
 # define YTL_C_GCC
-
 #elif defined( __clang__ )
 # define YTL_C_CLANG
-
 #else
 # define YTL_C_OTHER
-
 #endif
 
 

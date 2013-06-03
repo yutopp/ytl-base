@@ -1,5 +1,5 @@
-#ifndef YTL_DETAIL_BUFFER_BASE_HPP
-#define YTL_DETAIL_BUFFER_BASE_HPP
+#ifndef YTL_BASE_DETAIL_BINARY_BUFFER_BASE_HPP
+#define YTL_BASE_DETAIL_BINARY_BUFFER_BASE_HPP
 
 #include <cstddef>
 #include <type_traits>
@@ -136,7 +136,7 @@ namespace ytl
         public:
             typedef Derived                                                             derived_type;
 
-            typedef byte_t                                                              value_type;
+            typedef binary_buffer_policy::value_type                                    value_type;
             typedef Allocator<value_type>                                               allocator_type;
             typedef typename ContainerImpl<value_type, Allocator>::type                 wrapped_container_type;
 
@@ -248,7 +248,7 @@ namespace ytl
         public:
             typedef Derived                                                             derived_type;
 
-            typedef byte_t                                                              value_type;
+            typedef binary_buffer_policy::value_type                                    value_type;
             typedef Allocator<value_type>                                               allocator_type;
             typedef typename ContainerImpl<value_type, Allocator>::type                 wrapped_container_type;
 
@@ -329,7 +329,7 @@ namespace ytl
         public:
             typedef Derived                                                             derived_type;
 
-            typedef byte_t                                                              value_type;
+            typedef binary_buffer_policy::value_type                                    value_type;
             typedef Allocator<value_type>                                               allocator_type;
             typedef typename ContainerImpl<value_type, Allocator>::type                 wrapped_container_type;
 
@@ -437,6 +437,7 @@ namespace ytl
         };
 
         } // namespace detail
+
         // ----------------------------------------------------------------------------------------------------
         template<
             typename LhsDerived,
@@ -491,4 +492,4 @@ namespace ytl
     
 } // namespace ytl
 
-#endif /*YTL_DETAIL_BUFFER_BASE_HPP*/
+#endif /*YTL_BASE_DETAIL_BINARY_BUFFER_BASE_HPP*/

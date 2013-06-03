@@ -38,14 +38,21 @@ namespace ytl
 
     template<typename Owner>
     class const_shared_binary_range
-        : public detail::fixed_buffer_base<
-                    const_shared_binary_range<Owner>, detail::unused_allocator,
-                    detail::const_binary_range_container
-                >
+        : public detail::binary_buffer_base<
+            const_shared_binary_range<Owner>,
+            detail::unused_allocator,
+            detail::const_binary_range_container,
+            detail::fixed_tag
+         >
     {
     public:
         typedef const_shared_binary_range                           self_type;
-        typedef typename self_type::base_type                       base_type;
+        typedef detail::binary_buffer_base<
+                    const_shared_binary_range<Owner>,
+                    detail::unused_allocator,
+                    detail::const_binary_range_container,
+                    detail::fixed_tag
+                >                                                   base_type;
 
         typedef typename base_type::wrapped_container_type          range_type;
         typedef typename base_type::const_pointer                   const_pointer;
